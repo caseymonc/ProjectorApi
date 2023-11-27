@@ -6,8 +6,9 @@ projector.open().then(() => {
   const app = express();
   const port = process.env.PORT || 3040;
 
-  app.get('/projector/:commandd', async (req: Request, res: Response) => {
-    await projector.read(req.params.command);
+  app.get('/projector/:command', async (req: Request, res: Response) => {
+    const response = await projector.read(req.params.command);
+    console.log(response);
   });
 
   app.post('/projector/:command', async (req: Request, res: Response) => {
