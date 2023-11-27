@@ -60,13 +60,10 @@ export class ProjectorConnection {
     return await new Promise<any>((resolve, reject) => {
       this.#port?.write(data, undefined, (err) => {
         if (err) return reject(err);
-        this.#port?.drain((err) => {
-          if (err) return reject(err);
-          let response =  this.#port?.read(2);
-          while (response === null) response = this.#port?.read(2);
-          console.log(response);
-          resolve(response);
-        });
+        let response =  this.#port?.read(2);
+        while (response === null) response = this.#port?.read(2);
+        console.log(response);
+        resolve(response);
       });
     });
   }
