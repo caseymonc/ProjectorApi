@@ -58,12 +58,17 @@ export class ProjectorConnection {
     const data = ReadCommands[command];
     if (!data) throw "Invalid Command";
     return await new Promise<any>((resolve, reject) => {
+      const listener = (chunk: any) => {
+        this.#port?.off('data', listener);
+        console.log('data', chunk);
+        resolve(chunk);
+      }
+      this.#port?.on('data', listener);
       this.#port?.write(data, undefined, (err) => {
-        if (err) return reject(err);
-        let response =  this.#port?.read(2);
-        while (response === null) response = this.#port?.read(2);
-        console.log(response);
-        resolve(response);
+        if (err) {
+          this.#port?.off('data', listener);
+          return reject(err);
+        }
       });
     });
   }
