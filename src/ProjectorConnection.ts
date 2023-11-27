@@ -1,4 +1,4 @@
-import { SerialPort } from 'serialport';
+import { InterByteTimeoutParser, SerialPort } from 'serialport';
 
 const PowerOn: number[] = [0x06, 0x14, 0x00, 0x04, 0x00, 0x34, 0x11, 0x00, 0x00, 0x5D];
 const PowerOff: number[] = [0x06, 0x14, 0x00, 0x04, 0x00, 0x34, 0x11, 0x01, 0x00, 0x5E];
@@ -38,6 +38,7 @@ export class ProjectorConnection {
     const port = new SerialPort({ path: this.#path, baudRate: this.#baudRate, autoOpen: false });
     await new Promise<void>((resolve, reject) => {
       port.open((err) => {
+        const parser = port.pipe(new InterByteTimeoutParser({ interval: 30 }))
         if (err) return reject(err);
         resolve();
       })
