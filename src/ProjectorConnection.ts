@@ -53,7 +53,7 @@ export class ProjectorConnection {
     });
   }
 
-  async read(command: string): Promise<any> {
+  async read(command: string): Promise<string> {
     if (!this.#port) throw "Must call open on ProjectorConnection before using it.";
     const data = ReadCommands[command];
     if (!data) throw "Invalid Command";
@@ -61,7 +61,7 @@ export class ProjectorConnection {
       const listener = (chunk: any) => {
         this.#port?.off('data', listener);
         console.log('data', chunk.toString("hex"));
-        resolve(chunk);
+        resolve(chunk.toString("hex"));
       }
       this.#port?.on('data', listener);
       this.#port?.write(data, undefined, (err) => {

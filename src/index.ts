@@ -9,6 +9,7 @@ projector.open().then(() => {
   app.get('/projector/:command', async (req: Request, res: Response) => {
     const response = await projector.read(req.params.command);
     console.log(response);
+    res.send(response);
   });
 
   app.post('/projector/:command', async (req: Request, res: Response) => {
