@@ -67,7 +67,7 @@ export class ProjectorConnection {
     return await new Promise<any>((resolve, reject) => {
       const listener = (chunk: any) => {
         this.#port?.off('data', listener);
-        resolve(chunk.toString('utf8'));
+        resolve(chunk.toString("hex"));
       }
       this.#port?.on('data', listener);
       this.#port?.write(data, undefined, (err) => {
