@@ -38,7 +38,6 @@ export class ProjectorConnection {
     const port = new SerialPort({ path: this.#path, baudRate: this.#baudRate, autoOpen: false });
     await new Promise<void>((resolve, reject) => {
       port.open((err) => {
-        const parser = port.pipe(new InterByteTimeoutParser({ interval: 30 }))
         if (err) return reject(err);
         resolve();
       })
@@ -70,6 +69,7 @@ export class ProjectorConnection {
         this.#port?.off('data', listener);
         resolve(chunk.toString("hex"));
       }
+      const parser = this.#port?.pipe(new InterByteTimeoutParser({ interval: 30 }))
       this.#port?.on('data', listener);
       this.#port?.write(data, undefined, (err) => {
         if (err) {
