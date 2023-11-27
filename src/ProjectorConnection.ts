@@ -60,7 +60,7 @@ export class ProjectorConnection {
     return await new Promise<any>((resolve, reject) => {
       const listener = (chunk: any) => {
         this.#port?.off('data', listener);
-        console.log('data', chunk);
+        console.log('data', chunk.toString("hex"));
         resolve(chunk);
       }
       this.#port?.on('data', listener);
