@@ -3,7 +3,14 @@ This is an express api for controlling a ViewSonic PJD5255 projector. It is run 
 
 ## Raspberry Pi Setup
 
-### Install Node
+### Install the OS
+1. Use Raspberry Pi Imager
+2. Choose the Raspberry Pi version that you have
+3. Select the OS (Raspberry Pi OS (Legacy) Lite)
+4. Install on sd card
+
+
+### Install Node.JS
 ```
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl gnupg
@@ -16,6 +23,7 @@ sudo apt-get install nodejs -y
 ```
 
 ### Disable Bluetooth
+In order to use the serial port hat, we will need to disable the bluetooth, since Raspberry Pi uses the same ports for Bluetooth as the serial port hat.
 ```
 sudo vim /boot/config.txt
 ```
