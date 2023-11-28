@@ -1,4 +1,5 @@
 # Projector Control API
+This is an express api for controlling a ViewSonic PJD5255 projector. It is run on a Raspberry Pi which connects to the projector using the RS232 Serial port.  It also has some API endpoints for controlling a linear actuator that will allow the projector to be hidden in the ceiling and dropped down when in use.
 
 ## Raspberry Pi Setup
 
