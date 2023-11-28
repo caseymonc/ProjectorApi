@@ -294,7 +294,7 @@ export class ProjectorConnection {
         this.#port?.off('data', listener);
         resolve(chunk.toString("hex"));
       }
-      const parser = this.#port?.pipe(new InterByteTimeoutParser({ interval: 30 }))
+      const parser = this.#port?.pipe(new InterByteTimeoutParser({ interval: 1000 }))
       this.#port?.on('data', listener);
       this.#port?.write(data, undefined, (err) => {
         if (err) {
