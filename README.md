@@ -49,13 +49,11 @@ Now we have stopped the Pi from using the serial to output its console data, we 
 
 
 ## Setup
-
 ```
 npm install
 ```
 
-## Lint
-
+## Start Server
 ```
-npm run lint
+npm start
 ```
