@@ -3,7 +3,7 @@
 ## Raspberry Pi Setup
 ### Disable Bluetooth
 ```
-sudo nano /boot/config.txt
+sudo vim /boot/config.txt
 ```
 
 Add the line
@@ -24,7 +24,7 @@ sudo cp /boot/cmdline.txt /boot/cmdline.txt.backup
 
 Now we can edit the original:
 ```
-sudo nano /boot/cmdline.txt
+sudo vim /boot/cmdline.txt
 ```
 
 You then need to remove the following text:
