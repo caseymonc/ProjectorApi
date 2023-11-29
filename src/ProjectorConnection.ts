@@ -249,6 +249,14 @@ export const ReadCommands: CommandMap = {
   Volume
 }
 
+type ReadMapType = {
+  [key: string]: (buffer: Buffer) => number;
+}
+
+const ReadMap: ReadMapType = {
+  Power: (buffer) => buffer.at(buffer.length - 1) || 0
+}
+
 export class ProjectorConnection {
   #path: string;
   #baudRate: number;
@@ -285,14 +293,16 @@ export class ProjectorConnection {
     });
   }
 
-  async read(command: string): Promise<string> {
+  async read(command: string): Promise<number | string> {
     if (!this.#port) throw "Must call open on ProjectorConnection before using it.";
     const data = ReadCommands[command];
     if (!data) throw "Invalid Command";
     return await new Promise<any>((resolve, reject) => {
       const listener = (chunk: any) => {
         this.#port?.off('data', listener);
-        resolve(chunk.toString("hex"));
+        let value = chunk.toString("hex");
+        if (ReadMap[command]) value = ReadMap[command](chunk);
+        resolve(value);
       }
       const parser = this.#port?.pipe(new InterByteTimeoutParser({ interval: 1000 }))
       this.#port?.on('data', listener);
