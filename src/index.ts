@@ -7,13 +7,23 @@ projector.open().then(() => {
   const port = process.env.PORT || 3040;
 
   app.get('/projector/:command', async (req: Request, res: Response) => {
-    const response = await projector.read(req.params.command);
-    res.send(response);
+    try {
+      const value = await projector.read(req.params.command);
+      return res.json({ value });
+    } catch (e) {
+      console.log("error", e)
+      return res.send("Failed ");
+    }
   });
 
   app.post('/projector/:command', async (req: Request, res: Response) => {
-    await projector.doAction(req.params.command);
-    res.send("OK");
+    try {
+      await projector.doAction(req.params.command);
+      return res.send("OK");
+    } catch (e) {
+      console.log("error", e)
+      return res.send("Failed ");
+    }
   });
 
   app.listen(port, () => {
