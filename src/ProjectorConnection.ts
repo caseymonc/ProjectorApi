@@ -254,7 +254,8 @@ type ReadMapType = {
 }
 
 const ReadMap: ReadMapType = {
-  Power: (buffer) => buffer.at(buffer.length - 1) || 0
+  Power: (buffer) => buffer.at(buffer.length - 1) || 0,
+  Volume: (buffer) => buffer.at(buffer.length - 1) || 0
 }
 
 export class ProjectorConnection {
