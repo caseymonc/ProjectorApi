@@ -256,8 +256,8 @@ type ReadMapType = {
 const ReadMap: ReadMapType = {
   QuickPowerOff: (v) => v === 1 ? 0 : 1,
   HighAltitudeMode: (v) => v === 1 ? 0 : 1,
-  KeystoneVertical: (v) => v > 40 ? v - 256 : v,
-  KeystoneHorizontal: (v) => v > 40 ? v - 256 : v,
+  KeystoneVertical: (v) => (v > 40 ? v - 256 : v) * -1,
+  KeystoneHorizontal: (v) => (v > 40 ? v - 256 : v) * -1,
 }
 
 export class ProjectorConnection {
