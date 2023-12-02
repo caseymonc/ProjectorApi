@@ -250,12 +250,12 @@ export const ReadCommands: CommandMap = {
 }
 
 type ReadMapType = {
-  [key: string]: (buffer: Buffer) => number;
+  [key: string]: (value: number) => number;
 }
 
 const ReadMap: ReadMapType = {
-  Power: (buffer) => buffer.at(buffer.length - 1) || 0,
-  Volume: (buffer) => buffer.at(buffer.length - 1) || 0
+  QuickPowerOff: (v) => v === 1 ? 0 : 1,
+  HighAltitudeMode: (v) => v === 1 ? 0 : 1,
 }
 
 export class ProjectorConnection {
@@ -299,10 +299,10 @@ export class ProjectorConnection {
     const data = ReadCommands[command];
     if (!data) throw "Invalid Command";
     return await new Promise<any>((resolve, reject) => {
-      const listener = (chunk: any) => {
+      const listener = (buffer: any) => {
         this.#port?.off('data', listener);
-        let value = chunk.toString("hex");
-        if (ReadMap[command]) value = ReadMap[command](chunk);
+        let value = buffer.at(buffer.length - 1) || 0;
+        if (ReadMap[command]) value = ReadMap[command](value);
         resolve(value);
       }
       const parser = this.#port?.pipe(new InterByteTimeoutParser({ interval: 1000 }))
