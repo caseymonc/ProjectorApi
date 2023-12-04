@@ -1,10 +1,13 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 import { ProjectorConnection } from './ProjectorConnection';
 
 const projector = new ProjectorConnection('/dev/ttyAMA0', 115200);
 projector.open().then(() => {
   const app = express();
   const port = process.env.PORT || 3040;
+
+  app.use(cors());
 
   app.get('/projector/:command', async (req: Request, res: Response) => {
     try {
