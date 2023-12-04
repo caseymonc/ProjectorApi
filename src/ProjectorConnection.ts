@@ -317,4 +317,24 @@ export class ProjectorConnection {
       });
     });
   }
+
+  negativeCommand(command: string) {
+    switch (command) {
+      case 'Power': return "PowerOff";
+      case 'Volume': return 'VolumeDown';
+      case 'KeystoneVertical': return 'KeystoneVerticalDecrease';
+      case 'KeystoneHorizontal': return 'KeystoneHorizontalDecrease';
+      default: return null;
+    }
+  }
+
+  positiveCommand(command: string) {
+    switch (command) {
+      case 'Power': return "PowerOn";
+      case 'Volume': return 'VolumeUp';
+      case 'KeystoneVertical': return 'KeystoneVerticalIncrease';
+      case 'KeystoneHorizontal': return 'KeystoneHorizontalIncrease';
+      default: return null;
+    }
+  }
 }
