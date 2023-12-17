@@ -11,21 +11,27 @@ export class LinearAccelerator {
     await GPIO.promise.setup(IN2, GPIO.DIR_OUT);
   }
 
-  startDown() {
-    GPIO.output(ENA,true);
-    GPIO.output(IN1,true);
-    GPIO.output(IN2,false);
+  async startDown() {
+    console.log('Starting Motor Down');
+    await GPIO.promise.write(ENA,true);
+    await GPIO.promise.write(IN1,true);
+    await GPIO.promise.write(IN2,false);
+    console.log('Started Motor Down');
   }
 
   startUp() {
-    GPIO.output(ENA,true);
-    GPIO.output(IN1,false);
-    GPIO.output(IN2,true);
+    console.log('Starting Motor Up');
+    GPIO.promise.write(ENA,true);
+    GPIO.promise.write(IN1,false);
+    GPIO.promise.write(IN2,true);
+    console.log('Started Motor Down');
   }
 
   stop() {
-    GPIO.output(ENA,true);
-    GPIO.output(IN1,false);
-    GPIO.output(IN2,false);
+    console.log('Stopping Motor');
+    GPIO.promise.write(ENA,true);
+    GPIO.promise.write(IN1,false);
+    GPIO.promise.write(IN2,false);
+    console.log('Stopped Motor');
   }
 }
