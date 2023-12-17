@@ -1,12 +1,11 @@
 import { LinearAccelerator } from "./LinearAccelerator";
+import awaitTimeout from "./awaitTimeout";
 
 const motor = new LinearAccelerator();
 motor.open().then(async () => {
   await motor.startDown();
-  setTimeout(async () => {
-    await motor.startUp();
-    setTimeout(async () => {
-      await motor.stop();
-    }, 1000);
-  }, 1000);
-})
+  await awaitTimeout(1000);
+  await motor.startUp();
+  await awaitTimeout(1000);
+  await motor.stop();
+});

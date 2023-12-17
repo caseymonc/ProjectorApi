@@ -6,9 +6,13 @@ const IN2 = 15;
 
 export class LinearAccelerator {
   async open() {
+    console.log('Setup ENA');
     await GPIO.promise.setup(ENA, GPIO.DIR_OUT);
+    console.log('Setup IN1');
     await GPIO.promise.setup(IN1, GPIO.DIR_OUT);
+    console.log('Setup IN2');
     await GPIO.promise.setup(IN2, GPIO.DIR_OUT);
+    console.log('Setup Done');
   }
 
   async startDown() {
