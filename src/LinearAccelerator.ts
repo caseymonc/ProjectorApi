@@ -5,10 +5,10 @@ const IN1 = 13;
 const IN2 = 15;
 
 export class LinearAccelerator {
-  constructor() {
-    GPIO.setup(ENA, GPIO.DIR_OUT);
-    GPIO.setup(IN1, GPIO.DIR_OUT);
-    GPIO.setup(IN2, GPIO.DIR_OUT);
+  async open() {
+    await GPIO.promise.setup(ENA, GPIO.DIR_OUT);
+    await GPIO.promise.setup(IN1, GPIO.DIR_OUT);
+    await GPIO.promise.setup(IN2, GPIO.DIR_OUT);
   }
 
   startDown() {
