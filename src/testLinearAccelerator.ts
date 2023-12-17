@@ -8,4 +8,5 @@ motor.open().then(async () => {
   await motor.startUp();
   await awaitTimeout(10000);
   await motor.stop();
+  await motor.close();
 });
