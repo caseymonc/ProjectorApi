@@ -38,7 +38,7 @@ projector.open().then(() => {
     }
   });
 
-  app.post('/projector/:command/toggle', async (req: Request, res: Response) => {
+  app.post('/projector/:command', async (req: Request, res: Response) => {
     try {
       await projector.doAction(req.params.command);
       return res.send("OK");
