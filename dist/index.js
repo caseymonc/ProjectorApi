@@ -18,7 +18,7 @@ const ProjectorConnection_1 = require("./ProjectorConnection");
 const projector = new ProjectorConnection_1.ProjectorConnection('/dev/ttyAMA0', 115200);
 projector.open().then(() => {
     const app = (0, express_1.default)();
-    const port = process.env.PORT || 3040;
+    const port = process.env.PORT || 80;
     app.use((0, cors_1.default)());
     app.get('/projector/:command', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {

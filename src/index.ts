@@ -5,7 +5,7 @@ import { ProjectorConnection } from './ProjectorConnection';
 const projector = new ProjectorConnection('/dev/ttyAMA0', 115200);
 projector.open().then(() => {
   const app = express();
-  const port = process.env.PORT || 3040;
+  const port = process.env.PORT || 80;
 
   app.use(cors());
 
